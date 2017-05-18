@@ -1,9 +1,11 @@
 package com.github.walak.knight.model;
 
+import sun.reflect.generics.reflectiveObjects.NotImplementedException;
+
 public class Coord {
 
-    private final int x;
-    private final int y;
+    protected int x;
+    protected int y;
 
     public Coord(int x, int y) {
         this.x = x;
@@ -20,5 +22,9 @@ public class Coord {
 
     public int getY() {
         return y;
+    }
+
+    public String toJson() {
+        throw new NotImplementedException();
     }
 }

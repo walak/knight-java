@@ -28,6 +28,26 @@ public class Board {
     }
 
     public boolean isEmpty(int x, int y) {
-        return getField(x,y) == 0;
+        return getField(x, y) == 0;
     }
+
+    public void markField(int x, int y, int v) {
+        fields[x][y] = v;
+    }
+
+    @Override
+    public String toString() {
+        String output = "";
+        for (int y = 0; y < getSize(); y++) {
+            output += "[";
+            for (int x = 0; x < getSize(); x++) {
+                output += fields[x][y];
+                output += (x + 1) == getSize() ? "" : ",\t";
+            }
+            output += "]\r\n";
+        }
+        return output;
+    }
+
+
 }
