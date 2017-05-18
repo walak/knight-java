@@ -1,12 +1,16 @@
 package com.github.walak.knight.core;
 
-import com.github.walak.knight.model.Board;
-import com.github.walak.knight.model.Direction;
-import com.github.walak.knight.model.Knight;
-import com.github.walak.knight.model.Move;
+import com.github.walak.knight.model.*;
+
+import java.util.Collections;
+import java.util.List;
+import java.util.Optional;
+import java.util.Random;
+import java.util.stream.Collectors;
 
 public class GameMechanics {
 
+    private final static Random RANDOM = new Random();
     private final Knight knight;
     private final Board board;
 
@@ -41,4 +45,26 @@ public class GameMechanics {
                 knight.getMarker());
         return toReturn;
     }
+
+    private Coord getRandomLocation(int max) {
+        int x = RANDOM.nextInt(max);
+        int y = RANDOM.nextInt(max);
+        return new Coord(x, y);
+    }
+
+    private List<Direction> getPossibleMoves() {
+        return Direction.DIRECTIONS.stream()
+                .filter(d -> canMove(d))
+                .collect(Collectors.toList());
+    }
+
+    private Optional<Direction> getNextRandomPossibleMove() {
+        List<Direction> directions = getPossibleMoves();
+        Collections.shuffle(directions);
+        if (directions.isEmpty()) {
+            return Optional.empty();
+        } else
+            return Optional.of(directions.get(0));
+    }
+
 }
