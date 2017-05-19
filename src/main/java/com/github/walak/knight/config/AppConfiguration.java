@@ -3,6 +3,8 @@ package com.github.walak.knight.config;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Properties;
 
 public class AppConfiguration extends Properties {
@@ -43,5 +45,32 @@ public class AppConfiguration extends Properties {
 
     public static AppConfiguration empty() {
         return new AppConfiguration();
+    }
+
+    private static <Z> Z get() {
+        return (Z) new Integer(1);
+    }
+
+    private static class Bag {
+        List<Object> objects = new ArrayList<>();
+
+        public <T> void add(T t) {
+            objects.add(t);
+        }
+
+        public <T> T next() {
+            return (T) objects.remove(0);
+        }
+    }
+
+    public static void main(String[] args) {
+        Bag bag = new Bag();
+        bag.add("Chuj");
+        bag.add(122);
+        bag.add(new Object());
+
+        String s = bag.next();
+        Integer i = bag.next();
+        Object o = bag.next();
     }
 }
